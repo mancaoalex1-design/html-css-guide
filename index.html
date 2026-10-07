@@ -1,0 +1,2475 @@
+<!DOCTYPE html>
+<!-- ==========================================================================
+     HTML & CSS INTERACTIVE CHEAT SHEET & LEARNING MASTERCLASS
+     ==========================================================================
+     SYNTAX: <!DOCTYPE html>
+     THIS IS FOR:
+       Tells the web browser which version of HTML the page is written in.
+       <!DOCTYPE html> specifically declares modern HTML5 standards.
+     WHAT WILL HAPPEN AFTER IMPLEMENTING:
+       The browser will render the page in standard "Standards Mode" instead
+       of quirky legacy compatibility mode, preventing layout rendering bugs.
+     ========================================================================== -->
+<html lang="en">
+<!-- ==========================================================================
+     SYNTAX: <html lang="en">
+     THIS IS FOR:
+       The root container element for the entire HTML document. The 'lang'
+       attribute specifies the primary human language (e.g., 'en' for English).
+     WHAT WILL HAPPEN AFTER IMPLEMENTING:
+       Screen readers and search engines know what language to read or translate,
+       improving accessibility and SEO.
+     ========================================================================== -->
+
+<head>
+  <!-- ========================================================================
+       SYNTAX: <head> ... &lt;/head&gt;
+       THIS IS FOR:
+         Holds machine-readable metadata, scripts, styles, and font imports.
+       WHAT WILL HAPPEN AFTER IMPLEMENTING:
+         Nothing directly appears on the visible page canvas, but it configures
+         title, charset, responsive scaling, and stylesheets.
+       ======================================================================== -->
+  <meta charset="UTF-8">
+  <!-- THIS IS FOR: Specifies UTF-8 character encoding (supports all emojis, accents, alphabets).
+       WHAT WILL HAPPEN: Characters like ©, —, ★, and emojis won't display as broken gibberish. -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- THIS IS FOR: Enables mobile responsiveness by matching viewport width to device screen.
+       WHAT WILL HAPPEN: The page scales properly on phones and tablets instead of zooming out like a desktop page. -->
+
+  <title>HTML &amp; CSS Interactive Master Guide — Complete Syntax Reference</title>
+  <!-- THIS IS FOR: Sets the title shown on the browser tab and search engine results.
+       WHAT WILL HAPPEN: Displays the name on the browser tab title bar and bookmark listings. -->
+
+  <!-- Google Fonts: Inter & JetBrains Mono for a clean developer aesthetics -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- ========================================================================
+       SYNTAX: <style> ... </style>
+       THIS IS FOR:
+         Contains internal CSS style rules that define layout, typography, colors,
+         animations, and responsive behavior for the page.
+       WHAT WILL HAPPEN AFTER IMPLEMENTING:
+         Transforms raw, unstyled HTML elements into a sleek, modern visual interface.
+       ======================================================================== -->
+  <style>
+    /* ==========================================================================
+       CSS SECTION 1: CSS CUSTOM PROPERTIES (VARIABLES)
+       SYNTAX: :root { --var-name: value; }
+       THIS IS FOR:
+         Defining reusable global values (colors, spacing, shadows, fonts) in one place.
+       WHAT WILL HAPPEN AFTER IMPLEMENTING:
+         You can change a color in one spot and it updates throughout the whole website.
+       ========================================================================== */
+    :root {
+      /* Color Palette */
+      --bg-main: #0b0f19;
+      --bg-surface: #111827;
+      --bg-surface-elevated: #1e293b;
+      --bg-surface-glass: rgba(17, 24, 39, 0.75);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-focus: #38bdf8;
+
+      /* Primary Branding Gradients & Accents */
+      --primary: #38bdf8;
+      --primary-hover: #0284c7;
+      --accent-purple: #a855f7;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+
+      /* Text Colors */
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+
+      /* Card Badges */
+      --badge-purpose-bg: rgba(56, 189, 248, 0.12);
+      --badge-purpose-border: rgba(56, 189, 248, 0.35);
+      --badge-purpose-text: #7dd3fc;
+
+      --badge-effect-bg: rgba(16, 185, 129, 0.12);
+      --badge-effect-border: rgba(16, 185, 129, 0.35);
+      --badge-effect-text: #6ee7b7;
+
+      /* Box Shadow & Radii */
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+      --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+      --shadow-glow: 0 0 20px rgba(56, 189, 248, 0.25);
+
+      /* Typography */
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-code: 'Fira Code', monospace;
+    }
+
+    /* ==========================================================================
+       CSS SECTION 2: CSS RESET & BOX MODEL RESET
+       SYNTAX: *, *::before, *::after { box-sizing: border-box; }
+       THIS IS FOR:
+         Standardizes box measurements across all elements.
+       WHAT WILL HAPPEN AFTER IMPLEMENTING:
+         Padding and border are included inside width/height instead of expanding
+         elements outwards, preventing unexpected horizontal scrolling & broken layouts.
+       ========================================================================== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      /* Smooth scrolling when clicking jump links */
+      color-scheme: dark;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(circle at 15% 10%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 45%);
+      background-attachment: fixed;
+    }
+
+    /* ==========================================================================
+       CSS SECTION 3: APP LAYOUT (SIDEBAR & MAIN CONTENT)
+       ========================================================================== */
+    .app-sidebar {
+      width: 300px;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      background: var(--bg-surface-glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-right: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      flex-shrink: 0;
+    }
+
+    .sidebar-header {
+      padding: 1.5rem 1.25rem 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #38bdf8 0%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .brand-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* Interactive Search Filter in Sidebar */
+    .search-box {
+      margin-top: 1rem;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 0.6rem 0.8rem 0.6rem 2.2rem;
+      border-radius: var(--radius-md);
+      font-size: 0.825rem;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      pointer-events: none;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .nav-category {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin: 1rem 0.5rem 0.35rem;
+    }
+
+    .nav-category:first-of-type {
+      margin-top: 0.25rem;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.55rem 0.75rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      transition: all 0.15s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateX(3px);
+    }
+
+    .nav-link.active {
+      color: var(--primary);
+      background: rgba(56, 189, 248, 0.1);
+      font-weight: 600;
+    }
+
+    .nav-badge {
+      margin-left: auto;
+      font-size: 0.65rem;
+      padding: 0.15rem 0.4rem;
+      border-radius: var(--radius-full);
+      background: var(--bg-surface-elevated);
+      color: var(--text-dim);
+    }
+
+    /* Main Content Container */
+    .app-main {
+      flex: 1;
+      padding: 2.5rem 3rem 6rem;
+      max-width: 1250px;
+      margin: 0 auto;
+      width: calc(100% - 300px);
+    }
+
+    /* Header Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(17, 24, 39, 0.8) 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-title {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-title .gradient-text {
+      background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 780px;
+      line-height: 1.6;
+    }
+
+    .quick-stats {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-chip {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      padding: 0.4rem 0.85rem;
+      border-radius: var(--radius-full);
+      font-size: 0.78rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-muted);
+    }
+
+    .stat-chip strong {
+      color: var(--text-main);
+    }
+
+    /* Section Styling */
+    .guide-section {
+      margin-bottom: 3.5rem;
+      scroll-margin-top: 2rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--border-subtle);
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      color: var(--text-main);
+    }
+
+    .section-tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-sm);
+      letter-spacing: 0.05em;
+    }
+
+    .tag-html {
+      background: rgba(244, 63, 94, 0.15);
+      color: #fb7185;
+      border: 1px solid rgba(244, 63, 94, 0.3);
+    }
+
+    .tag-css {
+      background: rgba(56, 189, 248, 0.15);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .tag-layout {
+      background: rgba(168, 85, 247, 0.15);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+    }
+
+    /* ==========================================================================
+       SYNTAX CARD SYSTEM (EXPLAINING: WHAT IT IS, WHAT IT'S FOR, WHAT HAPPENS)
+       ========================================================================== */
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .syntax-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .syntax-card:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* Card Header with Syntax Name */
+    .syntax-header {
+      background: rgba(255, 255, 255, 0.02);
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .syntax-name {
+      font-family: var(--font-code);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .syntax-tag-type {
+      font-size: 0.72rem;
+      font-family: var(--font-body);
+      color: var(--text-dim);
+      background: var(--bg-surface-elevated);
+      padding: 0.15rem 0.45rem;
+      border-radius: var(--radius-sm);
+    }
+
+    /* Prominent Display: "THIS IS FOR" and "WHAT HAPPENS AFTER IMPLEMENTING" */
+    .explain-block {
+      padding: 1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .this-is-for-badge {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      background: var(--badge-purpose-bg);
+      border: 1px solid var(--badge-purpose-border);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 0.85rem;
+      font-size: 0.85rem;
+      color: #e0f2fe;
+    }
+
+    .badge-label-for {
+      background: #0284c7;
+      color: #ffffff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .what-happens-badge {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      background: var(--badge-effect-bg);
+      border: 1px solid var(--badge-effect-border);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 0.85rem;
+      font-size: 0.85rem;
+      color: #ecfdf5;
+    }
+
+    .badge-label-effect {
+      background: #059669;
+      color: #ffffff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* Live Output vs Code Side-by-Side or Stacked */
+    .card-body-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 120px;
+    }
+
+    @media (max-width: 900px) {
+      .card-body-split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .live-preview-box {
+      padding: 1.25rem;
+      background: rgba(0, 0, 0, 0.25);
+      border-right: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    @media (max-width: 900px) {
+      .live-preview-box {
+        border-right: none;
+        border-bottom: 1px solid var(--border-subtle);
+      }
+    }
+
+    .box-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-dim);
+      letter-spacing: 0.06em;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .code-editor-box {
+      padding: 1.25rem;
+      background: #080c14;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .code-snippet {
+      font-family: var(--font-code);
+      font-size: 0.825rem;
+      line-height: 1.6;
+      color: #e2e8f0;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: all 0.2s ease;
+    }
+
+    .copy-btn:hover {
+      background: var(--primary);
+      color: #000;
+    }
+
+    /* Syntax Highlighting Fake Tokens for Rich Display */
+    .token-tag {
+      color: #f43f5e;
+      font-weight: 600;
+    }
+
+    .token-attr {
+      color: #fbbf24;
+    }
+
+    .token-val {
+      color: #34d399;
+    }
+
+    .token-comment {
+      color: #64748b;
+      font-style: italic;
+    }
+
+    .token-prop {
+      color: #38bdf8;
+    }
+
+    .token-cssval {
+      color: #a855f7;
+    }
+
+    /* ==========================================================================
+       SPECIAL PREVIEW COMPONENT STYLES
+       ========================================================================== */
+    /* Headings Demo */
+    .headings-demo h1 {
+      font-size: 1.8rem;
+      color: #f8fafc;
+      margin-bottom: 0.25rem;
+    }
+
+    .headings-demo h2 {
+      font-size: 1.4rem;
+      color: #e2e8f0;
+      margin-bottom: 0.25rem;
+    }
+
+    .headings-demo h3 {
+      font-size: 1.15rem;
+      color: #cbd5e1;
+      margin-bottom: 0.25rem;
+    }
+
+    .headings-demo h4 {
+      font-size: 1rem;
+      color: #94a3b8;
+      margin-bottom: 0.25rem;
+    }
+
+    .headings-demo h5 {
+      font-size: 0.875rem;
+      color: #64748b;
+      margin-bottom: 0.25rem;
+    }
+
+    .headings-demo h6 {
+      font-size: 0.75rem;
+      color: #475569;
+      text-transform: uppercase;
+    }
+
+    /* Text Formatting Demo */
+    .text-format-demo p {
+      margin-bottom: 0.5rem;
+    }
+
+    .text-format-demo mark {
+      background: #fbbf24;
+      color: #0f172a;
+      padding: 0.1rem 0.3rem;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+
+    .text-format-demo blockquote {
+      border-left: 3px solid var(--primary);
+      padding-left: 0.85rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin: 0.5rem 0;
+    }
+
+    /* Table Demo */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .custom-table th,
+    .custom-table td {
+      padding: 0.6rem 0.85rem;
+      text-align: left;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .custom-table th {
+      background: var(--bg-surface-elevated);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .custom-table tbody tr:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .custom-table caption {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      margin-bottom: 0.4rem;
+      text-align: left;
+    }
+
+    /* Form Preview Styles */
+    .demo-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      width: 100%;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .demo-input {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .demo-input:focus {
+      border-color: var(--primary);
+    }
+
+    .demo-btn {
+      background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
+      color: #fff;
+      font-weight: 600;
+      padding: 0.55rem 1rem;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: opacity 0.2s;
+    }
+
+    .demo-btn:hover {
+      opacity: 0.9;
+    }
+
+    /* Interactive Modal Dialog */
+    dialog.demo-dialog {
+      background: var(--bg-surface);
+      color: var(--text-main);
+      border: 1px solid var(--primary);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      margin: auto;
+      max-width: 400px;
+    }
+
+    dialog.demo-dialog::backdrop {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+    }
+
+    /* CSS Box Model Visual Diagram */
+    .box-model-diagram {
+      background: #fdba74;
+      /* Margin: Orange */
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #7c2d12;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .box-border-layer {
+      background: #fde047;
+      /* Border: Yellow */
+      padding: 15px;
+      border-radius: 6px;
+      color: #713f12;
+    }
+
+    .box-padding-layer {
+      background: #86efac;
+      /* Padding: Green */
+      padding: 15px;
+      border-radius: 4px;
+      color: #14532d;
+    }
+
+    .box-content-layer {
+      background: #93c5fd;
+      /* Content: Blue */
+      padding: 15px;
+      border-radius: 4px;
+      color: #1e3a8a;
+    }
+
+    /* Flexbox Interactive Playground */
+    .flex-playground {
+      display: flex;
+      gap: 10px;
+      background: var(--bg-surface-elevated);
+      padding: 15px;
+      border-radius: var(--radius-sm);
+      border: 1px dashed var(--border-subtle);
+      min-height: 120px;
+      transition: all 0.3s ease;
+    }
+
+    .flex-item {
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Grid Playground */
+    .grid-playground {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      background: var(--bg-surface-elevated);
+      padding: 15px;
+      border-radius: var(--radius-sm);
+    }
+
+    .grid-item {
+      background: linear-gradient(135deg, #7c3aed, #a855f7);
+      color: white;
+      padding: 16px;
+      text-align: center;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .grid-item-span {
+      grid-column: span 2;
+      background: linear-gradient(135deg, #059669, #10b981);
+    }
+
+    /* Positioning Sandbox */
+    .position-sandbox {
+      height: 110px;
+      background: var(--bg-surface-elevated);
+      position: relative;
+      border: 1px dashed var(--border-subtle);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      padding: 10px;
+    }
+
+    .pos-parent {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+    }
+
+    .pos-absolute-child {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: var(--accent-rose);
+      color: white;
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Animation Preview Box */
+    .animation-preview-item {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #f43f5e, #fbbf24);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 10px 20px rgba(244, 63, 94, 0.3);
+      animation: floatRotate 3s infinite ease-in-out alternate;
+    }
+
+    /* ==========================================================================
+       CSS SECTION 4: CSS KEYFRAMES ANIMATION
+       SYNTAX: @keyframes name { ... }
+       THIS IS FOR:
+         Declaring custom multistep animation sequences without JavaScript.
+       WHAT WILL HAPPEN AFTER IMPLEMENTING:
+         Elements assigned this animation smoothly transition between keyframe percentages.
+       ========================================================================== */
+    @keyframes floatRotate {
+      0% {
+        transform: translateY(0) rotate(0deg) scale(1);
+      }
+
+      50% {
+        transform: translateY(-10px) rotate(15deg) scale(1.08);
+      }
+
+      100% {
+        transform: translateY(5px) rotate(-10deg) scale(0.95);
+      }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+      .app-sidebar {
+        display: none;
+        /* Can be toggled if needed */
+      }
+
+      .app-main {
+        width: 100%;
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ==========================================================================
+       SYNTAX: <body> ... &lt;/body&gt;
+       THIS IS FOR:
+         Contains all visible content (text, images, containers, buttons, media)
+         that users interact with inside their browser viewport.
+       WHAT WILL HAPPEN AFTER IMPLEMENTING:
+         Every child element inside is parsed and rendered onto the screen.
+       ========================================================================== -->
+
+  <!-- ==========================================================================
+       SYNTAX: <aside> ... </aside>
+       THIS IS FOR:
+         Semantic container representing tangential or sidebar content related to
+         the main surrounding page (e.g., navigation menu, search, author bio).
+       WHAT WILL HAPPEN AFTER IMPLEMENTING:
+         Provides an accessible landmark region for screen readers and search bots.
+       ========================================================================== -->
+  <aside class="app-sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="brand-title">
+        <span>⚡</span> HTML &amp; CSS Master
+      </div>
+      <div class="brand-subtitle">Interactive Syntax &amp; Learning Manual</div>
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="syntaxSearch" class="search-input"
+          placeholder="Filter syntax (e.g. flex, form, table)..." onkeyup="filterCards()">
+      </div>
+    </div>
+
+    <!-- ========================================================================
+         SYNTAX: <nav> ... </nav>
+         THIS IS FOR:
+           Semantic tag wrapping major navigation links for the page or site.
+         WHAT WILL HAPPEN AFTER IMPLEMENTING:
+           Allows assistive technologies (like screen readers) to offer a quick
+           shortcut for visually impaired users to jump straight past repeated headers.
+         ======================================================================== -->
+    <nav class="sidebar-nav">
+      <div class="nav-category">HTML Fundamentals</div>
+      <a href="#sec-doc-structure" class="nav-link active"><span>📄</span> Document Skeleton <span
+          class="nav-badge">HTML</span></a>
+      <a href="#sec-headings" class="nav-link"><span>🏷️</span> Headings &amp; Paragraphs <span
+          class="nav-badge">HTML</span></a>
+      <a href="#sec-text-format" class="nav-link"><span>✍️</span> Text Formatting <span
+          class="nav-badge">HTML</span></a>
+      <a href="#sec-links" class="nav-link"><span>🔗</span> Links &amp; Anchors <span class="nav-badge">HTML</span></a>
+      <a href="#sec-lists" class="nav-link"><span>📋</span> Lists (ul, ol, dl) <span class="nav-badge">HTML</span></a>
+      <a href="#sec-media" class="nav-link"><span>🖼️</span> Images &amp; Media <span class="nav-badge">HTML</span></a>
+      <a href="#sec-tables" class="nav-link"><span>📊</span> Tables <span class="nav-badge">HTML</span></a>
+      <a href="#sec-forms" class="nav-link"><span>📝</span> Forms &amp; Inputs <span class="nav-badge">HTML</span></a>
+      <a href="#sec-semantic" class="nav-link"><span>🏗️</span> Semantic Layout <span class="nav-badge">HTML</span></a>
+      <a href="#sec-interactive-html" class="nav-link"><span>✨</span> Modern Interactive Tags <span
+          class="nav-badge">HTML5</span></a>
+
+      <div class="nav-category">CSS Fundamentals</div>
+      <a href="#sec-selectors" class="nav-link"><span>🎯</span> CSS Selectors <span class="nav-badge">CSS</span></a>
+      <a href="#sec-box-model" class="nav-link"><span>📦</span> Box Model &amp; Sizing <span
+          class="nav-badge">CSS</span></a>
+      <a href="#sec-colors-bg" class="nav-link"><span>🎨</span> Colors &amp; Gradients <span
+          class="nav-badge">CSS</span></a>
+      <a href="#sec-typography" class="nav-link"><span>🔤</span> Typography &amp; Text <span
+          class="nav-badge">CSS</span></a>
+      <a href="#sec-flexbox" class="nav-link"><span>📐</span> Flexbox Layout <span class="nav-badge">CSS</span></a>
+      <a href="#sec-grid" class="nav-link"><span>🏁</span> Grid Layout <span class="nav-badge">CSS</span></a>
+      <a href="#sec-positioning" class="nav-link"><span>📍</span> Positioning &amp; Layers <span
+          class="nav-badge">CSS</span></a>
+      <a href="#sec-animations" class="nav-link"><span>🎬</span> Transforms &amp; Animations <span
+          class="nav-badge">CSS</span></a>
+      <a href="#sec-media-queries" class="nav-link"><span>📱</span> Responsive Media Queries <span
+          class="nav-badge">CSS</span></a>
+    </nav>
+  </aside>
+
+  <!-- ==========================================================================
+       SYNTAX: <main> ... </main>
+       THIS IS FOR:
+         Semantic tag enclosing the dominant unique central content of the document.
+       WHAT WILL HAPPEN AFTER IMPLEMENTING:
+         Designates the primary content hub; there should only be ONE non-hidden
+         <main> element per webpage.
+       ========================================================================== -->
+  <main class="app-main">
+
+    <!-- Hero Banner Header -->
+    <header class="hero-banner">
+      <h1 class="hero-title">
+        <span>📘</span> <span class="gradient-text">HTML &amp; CSS Complete Syntax Guide</span>
+      </h1>
+      <p class="hero-desc">
+        Every essential syntax you need to master modern web development. Each card displays an explicit
+        <strong>"This is For"</strong> purpose breakdown, <strong>"What Will Happen After Implementing"</strong>
+        behavior summary,
+        alongside a live rendered preview and full source code commented with best practices.
+      </p>
+      <div class="quick-stats">
+        <div class="stat-chip">🎯 <strong>"This is For"</strong> Explained On Every Card</div>
+        <div class="stat-chip">⚡ <strong>"What Happens"</strong> Live Previews</div>
+        <div class="stat-chip">💬 <strong>Rich Source Code Comments</strong> Inside</div>
+        <div class="stat-chip">🚀 <strong>HTML5 + Modern CSS3</strong> Reference</div>
+      </div>
+    </header>
+
+    <!-- ========================================================================
+         SECTION 1: HTML DOCUMENT STRUCTURE & METADATA
+         ======================================================================== -->
+    <section class="guide-section" id="sec-doc-structure">
+      <div class="section-header">
+        <h2 class="section-title"><span>📄</span> Module 1: HTML Document Skeleton &amp; Metadata</h2>
+        <span class="section-tag tag-html">HTML Structure</span>
+      </div>
+
+      <div class="card-grid">
+        <!-- Card 1.1: Document Structure -->
+        <article class="syntax-card" data-keywords="doctype html head body meta title boilerplate structure">
+          <div class="syntax-header">
+            <span class="syntax-name">&lt;!DOCTYPE html&gt;, &lt;html&gt;, &lt;head&gt;, &lt;body&gt;</span>
+            <span class="syntax-tag-type">Root Document Boilerplate</span>
+          </div>
+          <div class="explain-block">
+            <div class="this-is-for-badge">
+              <span class="badge-label-for">This is For</span>
+              <span>Establishing the mandatory structural skeleton required for every valid modern web page.</span>
+            </div>
+            <div class="what-happens-badge">
+              <span class="badge-label-effect">What Will Happen</span>
+              <span>The browser operates in HTML5 Standards Mode. It parses document metadata in &lt;head&gt; and
+                displays rendered elements inside &lt;body&gt;.</span>
+            </div>
+          </div>
+          <div class="card-body-split">
+            <div class="live-preview-box">
+              <div class="box-title">👁️ Live Conceptual Representation</div>
+              <div
+                style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px; font-size: 0.825rem; border: 1px dashed var(--border-subtle);">
+                <div style="color: #38bdf8; font-weight: 600;">&lt;html lang="en"&gt;</div>
+                <div style="margin-left: 15px; color: #a855f7;">├── &lt;head&gt; <span
+                    style="color: var(--text-dim);">(Metadata, charset, title, styles - invisible to user)</span></div>
+                <div style="margin-left: 15px; color: #10b981;">└── &lt;body&gt; <span
+                    style="color: var(--text-dim);">(Visible screen canvas containing all tags below)</span></div>
+              </div>
+            </div>
+            <div class="code-editor-box">
+              <button class="copy-btn" onclick="copySnippet(this)">📋 Copy</button>
+              <pre class="code-snippet">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Page Title&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;!-- All your visible website content goes here --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 2: HEADINGS & PARAGRAPHS
+         ======================================================================== -->
+    <section class="guide-section" id="sec-headings">
+      <div class="section-header">
+        <h2 class="section-title"><span>🏷️</span> Module 2: Headings, Paragraphs &amp; Breaks</h2>
+        <span class="section-tag tag-html">Text Structure</span>
+      </div>
+
+      <div class="card-grid">
+        <!-- Card 2.1: Headings H1 to H6 -->
+        <article class="syntax-card" data-keywords="h1 h2 h3 h4 h5 h6 heading title seo">
+          <div class="syntax-header">
+            <span class="syntax-name">&lt;h1&gt; to &lt;h6&gt;</span>
+            <span class="syntax-tag-type">Heading Hierarchy Elements</span>
+          </div>
+          <div class="explain-block">
+            <div class="this-is-for-badge">
+              <span class="badge-label-for">This is For</span>
+              <span>Organizing content hierarchy and informing search engines (SEO) and screen readers of topic
+                importance.</span>
+            </div>
+            <div class="what-happens-badge">
+              <span class="badge-label-effect">What Will Happen</span>
+              <span>Renders bold title text with decreasing default font size from &lt;h1&gt; (most important, only 1
+                per page) down to &lt;h6&gt; (sub-sub topic).</span>
+            </div>
+          </div>
+          <div class="card-body-split">
+            <div class="live-preview-box headings-demo">
+              <div class="box-title">👁️ Live Rendered Result</div>
+              <h1>H1 Main Page Topic</h1>
+              <h2>H2 Major Section Header</h2>
+              <h3>H3 Sub-section Header</h3>
+              <h4>H4 Minor Topic Header</h4>
+              <h5>H5 Low-level Topic</h5>
+              <h6>H6 Smallest Header</h6>
+            </div>
+            <div class="code-editor-box">
+              <button class="copy-btn" onclick="copySnippet(this)">📋 Copy</button>
+              <pre class="code-snippet">&lt;!-- Use exactly ONE &lt;h1&gt; per page for primary topic / SEO --&gt;
+&lt;h1&gt;H1 Main Page Topic&lt;/h1&gt;
+&lt;h2&gt;H2 Major Section Header&lt;/h2&gt;
+&lt;h3&gt;H3 Sub-section Header&lt;/h3&gt;
+&lt;h4&gt;H4 Minor Topic Header&lt;/h4&gt;
+&lt;h5&gt;H5 Low-level Topic&lt;/h5&gt;
+&lt;h6&gt;H6 Smallest Header&lt;/h6&gt;</pre>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2.2: Paragraph, Break, HR -->
+        <article class="syntax-card" data-keywords="p br hr paragraph break line divider">
+          <div class="syntax-header">
+            <span class="syntax-name">&lt;p&gt;, &lt;br&gt;, &lt;hr&gt;</span>
+            <span class="syntax-tag-type">Text Blocks &amp; Separation</span>
+          </div>
+          <div class="explain-block">
+            <div class="this-is-for-badge">
+              <span class="badge-label-for">This is For</span>
+              <span><strong>&lt;p&gt;</strong> marks normal paragraph text. <strong>&lt;br&gt;</strong> forces a line
+                break inside a paragraph. <strong>&lt;hr&gt;</strong> adds a thematic horizontal dividing line.</span>
+            </div>
+            <div class="what-happens-badge">
+              <span class="badge-label-effect">What Will Happen</span>
+              <span>&lt;p&gt; creates a block with top/bottom margin. &lt;br&gt; drops text to the next line without
+                adding paragraph spacing. &lt;hr&gt; renders a visible horizontal separator line.</span>
+            </div>
+          </div>
+          <div class="card-body-split">
+            <div class="live-preview-box">
+              <div class="box-title">👁️ Live Rendered Result</div>
+              <p style="font-size: 0.9rem; margin-bottom: 8px;">
+                This is a standard paragraph &lt;p&gt; with normal line height.<br>
+                Notice how &lt;br&gt; forced this text straight onto the next line!
+              </p>
+              <hr style="border: 0; border-top: 1px solid var(--border-subtle); margin: 12px 0;">
+              <p style="font-size: 0.85rem; color: var(--text-muted);">
+                This paragraph sits neatly below the thematic &lt;hr&gt; divider line.
+              </p>
+            </div>
+            <div class="code-editor-box">
+              <button class="copy-btn" onclick="copySnippet(this)">📋 Copy</button>
+              <pre class="code-snippet">&lt;p&gt;
+  This is a standard paragraph &lt;p&gt; with normal line height.&lt;br&gt;
+  Notice how &lt;br&gt; forced this text straight onto the next line!
+&lt;/p&gt;
+
+&lt;!-- &lt;hr&gt; is a self-closing thematic break line --&gt;
+&lt;hr&gt;
+
+&lt;p&gt;This paragraph sits neatly below the thematic &lt;hr&gt; divider line.&lt;/p&gt;</pre>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 3: INLINE TEXT FORMATTING
+         ======================================================================== -->
+    <section class="guide-section" id="sec-text-format">
+      <div class="section-header">
+        <h2 class="section-title"><span>✍️</span> Module 3: Inline Text Formatting &amp; Typography</h2>
+        <span class="section-tag tag-html">Inline Elements</span>
+      </div>
+
+      <div class="card-grid">
+        <article class="syntax-card"
+          data-keywords="strong em b i mark small del ins sub sup code kbd pre blockquote abbr text formatting">
+          <div class="syntax-header">
+            <span class="syntax-name">&lt;strong&gt;, &lt;em&gt;, &lt;mark&gt;, &lt;del&gt;, &lt;ins&gt;, &lt;sub&gt;,
+              &lt;sup&gt;, &lt;code&gt;, &lt;blockquote&gt;</span>
+            <span class="syntax-tag-type">Semantic Inline Styling</span>
+          </div>
+          <div class="explain-block">
+            <div class="this-is-for-badge">
+              <span class="badge-label-for">This is For</span>
+              <span>Adding semantic meaning and specialized styling to phrases, keywords, mathematical notation,
+                highlights, or quotes within text.</span>
+            </div>
+            <div class="what-happens-badge">
+              <span class="badge-label-effect">What Will Happen</span>
+              <span>Renders bolding, italics, yellow highlighting, strike-through, superscript, monospace code blocks,
+                and indented quote callouts.</span>
+            </div>
+          </div>
+          <div class="card-body-split">
+            <div class="live-preview-box text-format-demo">
+              <div class="box-title">👁️ Live Rendered Result</div>
+              <p>• <strong>Strong importance (bold)</strong> and <em>Emphasized tone (italics)</em></p>
+              <p>• <mark>Highlighted text (&lt;mark&gt;)</mark> and <small>Small legal text (&lt;small&gt;)</small></p>
+              <p>• Old price: <del>$99</del> New price: <ins style="color: #34d399;">$49</ins> (&lt;del&gt; &amp;
+                &lt;ins&gt;)</p>
+              <p>• Chemistry: H<sub>2</sub>O (&lt;sub&gt;) | Math: E = mc<sup>2</sup> (&lt;sup&gt;)</p>
+              <p>• Inline code: <code
+                  style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-family: monospace;">npm run dev</code>
+              </p>
+              <p>• Keyboard key: Press <kbd
+                  style="background: #334155; border: 1px solid #64748b; padding: 2px 6px; border-radius: 3px; font-size: 0.75rem;">Ctrl</kbd>
+                + <kbd
+                  style="background: #334155; border: 1px solid #64748b; padding: 2px 6px; border-radius: 3px; font-size: 0.75rem;">C</kbd>
+              </p>
+              <p>• Abbreviation: <abbr title="HyperText Markup Language"
+                  style="text-decoration: underline dotted; cursor: help;">HTML</abbr> (hover cursor over me!)</p>
+              <blockquote>"Design is not just what it looks like and feels like. Design is how it works."</blockquote>
+            </div>
+            <div class="code-editor-box">
+              <button class="copy-btn" onclick="copySnippet(this)">📋 Copy</button>
+              <pre class="code-snippet">&lt;strong&gt;Strong importance (bold)&lt;/strong&gt;
+&lt;em&gt;Emphasized tone (italics)&lt;/em&gt;
+&lt;mark&gt;Highlighted text&lt;/mark&gt;
+&lt;small&gt;Small copyright / disclaimer text&lt;/small&gt;
+&lt;del&gt;$99&lt;/del&gt; &lt;ins&gt;$49&lt;/ins&gt;
+H&lt;sub&gt;2&lt;/sub&gt;O and E = mc&lt;sup&gt;2&lt;/sup&gt;
+&lt;code&gt;npm run dev&lt;/code&gt;
+&lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;C&lt;/kbd&gt;
+&lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt;
+
+&lt;blockquote&gt;
+  "Design is not just what it looks like... Design is how it works."
+&lt;/blockquote&gt;</pre>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 4: HYPERLINKS & ANCHORS
+         ======================================================================== -->
+    <section class="guide-section" id="sec-links">
+      <div class="section-header">
+        <h2 class="section-title"><span>🔗</span> Module 4: Hyperlinks &amp; Navigation Anchors</h2>
+        <span class="section-tag tag-html">Links</span>
+      </div>
+
+      <div class="card-grid">
+        <article class="syntax-card" data-keywords="a href anchor link target blank mailto tel download">
+          <div class="syntax-header">
+            <span class="syntax-name">&lt;a href="..." target="_blank" rel="..."&gt;</span>
+            <span class="syntax-tag-type">Hyperlink Anchor Tag</span>
+          </div>
+          <div class="explain-block">
+            <div class="this-is-for-badge">
+              <span class="badge-label-for">This is For</span>
+              <span>Navigating to another URL, jumping to a section ID on the current page, triggering phone calls,
+                emails, or downloading files.</span>
+            </div>
+            <div class="what-happens-badge">
+              <span class="badge-label-effect">What Will Happen</span>
+              <span>Turns text into a clickable link. Clicking opens the target page in a new tab
+                (<code>target="_blank"</code>), triggers an email client (<code>mailto:</code>), or jumps immediately
+                down the page.</span>
+            </div>
+          </div>
+          <div class="card-body-split">
+            <div class="live-preview-box">
+              <div class="box-title">👁️ Live Rendered Result</div>
+              <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.875rem;">
+                <div>🌐 <a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer"
+                    style="color: var(--primary); text-decoration: underline;">Open MDN Web Docs (New Tab)</a></div>
+                <div>📍 <a href="#sec-forms" style="color: var(--accent-purple); text-decoration: underline;">Jump to
+                    Forms Section (#sec-forms)</a></div>
+                <div>✉️ <a href="mailto:hello@example.com"
+                    style="color: var(--accent-emerald); text-decoration: underline;">Send Email
+                    (mailto:hello@example.com)</a></div>
+                <div>📞 <a href="tel:+1234567890" style="color: var(--accent-amber); text-decoration: underline;">Call
+                    Phone (tel:+1234567890)</a></div>
+              </div>
+            </div>
+            <div class="code-editor-box">
+              <button class="copy-btn" onclick="copySnippet(this)">📋 Copy</button>
+              <pre class="code-snippet">&lt;!-- External link opening in a new browser tab safely --&gt;
+&lt;a href="https://example.com" target="_blank" rel="noopener noreferrer"&gt;
+  Visit Example
+&lt;/a&gt;
+
+&lt;!-- In-page smooth jump using element ID hash --&gt;
+&lt;a href="#sec-forms"&gt;Jump to Forms Section&lt;/a&gt;
+
+&lt;!-- Opens default email app with recipient pre-filled --&gt;
+&lt;a href="mailto:hello@example.com"&gt;Email Us&lt;/a&gt;
+
+&lt;!-- Mobile phone dialer trigger --&gt;
+&lt;a href="tel:+1234567890"&gt;Call Customer Care&lt;/a&gt;</pre>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 5: LISTS
+         ======================================================================== -->
+    <section class="guide-section" id="sec-lists">
+      <div class="section-header">
+        <h2 class="section-title"><span>📋</span> Module 5: Lists (Unordered, Ordered &amp; Definition)</h2>
+        <span class="section-tag tag-html">Data Grouping</span>
+      </div>
+
+      <div class="card-grid">
+        <article class="syntax-card" data-keywords="ul ol li dl dt dd list bullet numbered definition">
+          <div class="syntax-header">
+            <span class="syntax-name">&lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;, &lt;dl&gt;, &lt;dt&gt;, &lt;dd&gt;</span>
+            <span class="syntax-tag-type">List Elements</span>
+          </div>
+          <div class="explain-block">
+            <div class="this-is-for-badge">
+              <span class="badge-label-for">This is For</span>
+              <span>Grouping items. <strong>&lt;ul&gt;</strong> for unordered bullet points; <strong>&lt;ol&gt;</strong>
+                for ordered numbered steps; <strong>&lt;dl&gt;</strong> for key-value terms/definitions
+                (glossaries).</span>
+            </div>
+            <div class="what-happens-badge">
+              <span class="badge-label-effect">What Will Happen</span>
+              <span>&lt;ul&gt; renders disc bullets. &lt;ol&gt; renders sequential numbers (1, 2, 3...). &lt;dl&gt;
+                groups terms (&lt;dt&gt;) with indented definitions (&lt;dd&gt;).</span>
+            </div>
+          </div>
+          <div class="card-body-split">
+            <div class="live-preview-box">
+              <div class="box-title">👁️ Live Rendered Result</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.85rem;">
+                <div>
+                  <strong style="color: var(--primary);">Unordered &lt;ul&gt;:</strong>
+                  <ul style="padding-left: 20px; margin-top: 4px;">
+                    <li>HTML (Structure)</li>
+                    <li>CSS (Presentation)</li>
+                    <li>JavaScript (Behavior)</li>
+                  </ul>
+                </div>
+                <div>
+                  <strong style="color: var(--accent-purple);">Ordered &lt;ol&gt;:</strong>
+                  <ol style="padding-left: 20px; margin-top: 4px;">
+                    <li>Write Semantic HTML</li>
+                    <li>Style with Clean CSS</li>
+                    <li>Ship to Production</li>
+                  </ol>
+                </div>
+              </div>
+              <div
+                style="margin-top: 12px; font-size: 0.85rem; border-top: 1px dashed var(--border-subtle); padding-top: 8px;">
+                <strong style="color: var(--accent-emerald);">Definition List &lt;dl&gt;:</strong>
+                <dl style="margin-top: 4px;">
+                  <dt style="font-weight: 600; color: #fff;">HTML:</dt>
+                  <dd style="margin-left: 15px; color: var(--text-muted);">Standard language for creating web documents.
+                  </dd>
+                </dl>
+              </div>
+            </div>
+            <div class="code-editor-box">
+              <button class="copy-btn" onclick="copySnippet(this)">📋 Copy</button>
+              <pre class="code-snippet">&lt;!-- Unordered Bulleted List --&gt;
+&lt;ul&gt;
+  &lt;li&gt;HTML (Structure)&lt;/li&gt;
+  &lt;li&gt;CSS (Presentation)&lt;/li&gt;
+  &lt;li&gt;JavaScript (Behavior)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Ordered Numbered List (can use start="1" or type="A") --&gt;
+&lt;ol&gt;
+  &lt;li&gt;Write Semantic HTML&lt;/li&gt;
+  &lt;li&gt;Style with Clean CSS&lt;/li&gt;
+  &lt;li&gt;Ship to Production&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;!-- Description / Dictionary List --&gt;
+&lt;dl&gt;
+  &lt;dt&gt;HTML&lt;/dt&gt;
+  &lt;dd&gt;Standard language for creating web documents.&lt;/dd&gt;
+&lt;/dl&gt;</pre>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 6: MEDIA & EMBEDS
+         ======================================================================== -->
+    <section class="guide-section" id="sec-media">
+      <div class="section-header">
+        <h2 class="section-title"><span>🖼️</span> Module 6: Multimedia &amp; Embeds</h2>
+        <span class="section-tag tag-html">Media</span>
+      </div>
+
+      <div class="card-grid">
+        <article class="syntax-card" data-keywords="img picture figure figcaption audio video iframe media">
+          <div class="syntax-header">
+            <span class="syntax-name">&lt;img&gt;, &lt;figure&gt;, &lt;audio&gt;, &lt;video&gt;, &lt;iframe&gt;</span>
+            <span class="syntax-tag-type">Media &amp; Embed Tags</span>
+          </div>
+          <div class="explain-block">
+            <div class="this-is-for-badge">
+              <span class="badge-label-for">This is For</span>
+              <span>Embedding graphic assets (<code>&lt;img&gt;</code>), captions (<code>&lt;figcaption&gt;</code>),
+                audio players (<code>&lt;audio&gt;</code>), video players (<code>&lt;video&gt;</code>), and external
+                webpages (<code>&lt;iframe&gt;</code>).</span>
+            </div>
+            <div class="what-happens-badge">
+              <span class="badge-label-effect">What Will Happen</span>
+              <span>Renders the media stream or image asset with native player controls (play/pause/volume) directly
+                inside the browser viewport.</span>
+            </div>
+          </div>
+          <div class="card-body-split">
+            <div class="live-preview-box">
+              <div class="box-title">👁️ Live Rendered Result</div>
+              <figure
+                style="margin: 0; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 6px; border: 1px solid var(--border-subtle);">
+                <!-- SVG Vector Demo Image -->
+                <svg width="100%" height="70" viewBox="0 0 300 70" xmlns="http://www.w3.org/2000/svg"
+                  style="border-radius: 4px; background: #0f172a;">
+                  <circle cx="40" cy="35" r="20" fill="#38bdf8" />
+                  <rect x="75" y="20" width="120" height="30" rx="6" fill="#a855f7" />
+                  <text x="85" y="40" fill="#ffffff" font-size="12" font-family="sans-serif">Vector SVG Media</text>
+                  <circle cx="250" cy="35" r="15" fill="#10b981" />
+                </svg>
+                <figcaption style="font-size: 0.75rem; color: var(--text-dim); margin-top: 6px; text-align: center;">
+                  &lt;figure&gt; with &lt;figcaption&gt; describes the media asset for accessibility.
+                </figcaption>
+              </figure>
+              <div style="margin-top: 10px;">
+                <audio controls style="width: 100%; height: 35px; border-radius: 4px;">
+                  <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA="
+                    type="audio/wav">
+                  Your browser does not support audio.
+                </audio>
+              </div>
+            </div>
+            <div class="code-editor-box">
+              <button class="copy-btn" onclick="copySnippet(this)">📋 Copy</button>
+              <pre class="code-snippet">&lt;!-- Accessible image with alt description &amp; lazy loading --&gt;
+&lt;figure&gt;
+  &lt;img src="hero.jpg" alt="Mountain sunset landscape" loading="lazy" width="600" height="400"&gt;
+  &lt;figcaption&gt;Figure 1: Photo caption for accessibility&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;!-- Native HTML5 Audio Player with controls --&gt;
+&lt;audio controls&gt;
+  &lt;source src="podcast.mp3" type="audio/mpeg"&gt;
+  Your browser does not support audio.
+&lt;/audio&gt;
+
+&lt;!-- Native HTML5 Video Player --&gt;
+&lt;video controls width="640" poster="thumb.jpg"&gt;
+  &lt;source src="video.mp4" type="video/mp4"&gt;
+&lt;/video&gt;</pre>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 7: TABLES
+         ======================================================================== -->
+    <section class="guide-section" id="sec-tables">
+      <div class="section-header">
+        <h2 class="section-title"><span>📊</span> Module 7: Tables &amp; Tabular Data</h2>
+        <span class="section-tag tag-html">Data Tables</span>
+      </div>
+
+      <div class="card-grid">
+        <article class="syntax-card" data-keywords="table thead tbody tfoot tr th td colspan rowspan caption">
+          <div class="syntax-header">
+            <span class="syntax-name">&lt;table&gt;, &lt;thead&gt;, &lt;tbody&gt;, &lt;tr&gt;, &lt;th&gt;, &lt;td&gt;,
+              colspan, rowspan</span>
+            <span class="syntax-tag-type">Tabular Grid Structure</span>
+          </div>
+          <div class="explain-block">
+            <div class="this-is-for-badge">
+              <span class="badge-label-for">This is For</span>
+              <span>Displaying structured two-dimensional data (rows and columns) such as pricing sheets, schedules, and
+                metrics.</span>
+            </div>
+            <div class="what-happens-badge">
+              <span class="badge-label-effect">What Will Happen</span>
+              <span>Aligns data in a clean matrix. &lt;th&gt; provides bold header titles; <code>colspan="2"</code>
+                stretches a cell across multiple columns.</span>
+            </div>
+          </div>
+          <div class="card-body-split">
+            <div class="live-preview-box">
+              <div class="box-title">👁️ Live Rendered Result</div>
+              <table class="custom-table">
+                <caption>Employee Technology Roster</caption>
+                <thead>
+                  <tr>
+                    <th>Role</th>
+                    <th>Skill</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Frontend Dev</td>
+                    <td>HTML5 &amp; CSS3</td>
+                    <td><span style="color: #34d399; font-weight: 600;">Active</span></td>
+                  </tr>
+                  <tr>
+                    <td>UI Engineer</td>
+                    <td>Flexbox &amp; Grid</td>
+                    <td><span style="color: #34d399; font-weight: 600;">Active</span></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" style="font-style: italic; color: var(--text-dim);">Total Team Members</td>
+                    <td><strong>2 Roles</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="code-editor-box">
+              <button class="copy-btn" onclick="copySnippet(this)">📋 Copy</button>
+              <pre class="code-snippet">&lt;table&gt;
+  &lt;caption&gt;Employee Technology Roster&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th scope="col"&gt;Role&lt;/th&gt;
+      &lt;th scope="col"&gt;Skill&lt;/th&gt;
+      &lt;th scope="col"&gt;Status&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Frontend Dev&lt;/td&gt;
+      &lt;td&gt;HTML5 &amp;amp; CSS3&lt;/td&gt;
+      &lt;td&gt;Active&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;!-- colspan="2" merges 2 columns into 1 cell --&gt;
+      &lt;td colspan="2"&gt;Total Team Members&lt;/td&gt;
+      &lt;td&gt;2 Roles&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</pre>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 8: FORMS & INPUTS
+         ======================================================================== -->
+    <section class="guide-section" id="sec-forms">
+      <div class="section-header">
+        <h2 class="section-title"><span>📝</span> Module 8: Forms &amp; All Input Types</h2>
+        <span class="section-tag tag-html">User Input</span>
+      </div>
+
+      <div class="card-grid">
+        <article class="syntax-card"
+          data-keywords="form input label button select option textarea checkbox radio range color file datalist">
+          <div class="syntax-header">
+            <span class="syntax-name">&lt;form&gt;, &lt;input type="..."&gt;, &lt;textarea&gt;, &lt;select&gt;,
+              &lt;button&gt;</span>
+            <span class="syntax-tag-type">Form Controls &amp; Validation</span>
+          </div>
+          <div class="explain-block">
+            <div class="this-is-for-badge">
+              <span class="badge-label-for">This is For</span>
+              <span>Collecting, validating, and submitting user data (passwords, emails, dates, file uploads, toggles)
+                to servers or JavaScript scripts.</span>
+            </div>
+            <div class="what-happens-badge">
+              <span class="badge-label-effect">What Will Happen</span>
+              <span>Renders interactive form elements. The browser automatically enforces validations (like checking for
+                valid email format or required fields) on submission.</span>
+            </div>
+          </div>
+          <div class="card-body-split">
+            <div class="live-preview-box">
+              <div class="box-title">👁️ Live Rendered Result</div>
+              <form class="demo-form" onsubmit="event.preventDefault(); alert('Form submitted successfully!');">
+                <div class="form-group">
+                  <label for="demo-email">Email Address (&lt;input type="email"&gt;):</label>
+                  <input type="email" id="demo-email" class="demo-input" placeholder="user@example.com" required>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                  <div class="form-group">
+                    <label for="demo-pass">Password:</label>
+                    <input type="password" id="demo-pass" class="demo-input" placeholder="••••••••">
+                  </div>
+                  <div class="form-group">
+                    <label for="demo-date">Date:</label>
+                    <input type="date" id="demo-date" class="demo-input">
+                  </div>
+                </div>
+                <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                  <label style="display: flex; align-items: center; gap: 5px; font-size: 0.8rem; cursor: pointer;">
+                    <input type="checkbox" checked> Remember me
+                  </label>
+                  <label style="display: flex; align-items: center; gap: 5px; font-size: 0.8rem; cursor: pointer;">
+                    <input type="color" value="#38bdf8"
+                      style="background: none; border: none; width: 25px; height: 25px; cursor: pointer;"> Choose Color
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label for="demo-select">Framework (&lt;select&gt;):</label>
+                  <select id="demo-select" class="demo-input">
+                    <option>Vanilla HTML/CSS</option>
+                    <option>React</option>
+                    <option>Vue</option>
+                  </select>
+                </div>
+                <button type="submit" class="demo-btn">Submit Test Form</button>
+              </form>
+            </div>
+            <div class="code-editor-box">
+              <button class="copy-btn" onclick="copySnippet(this)">📋 Copy</button>
+              <pre class="code-snippet">&lt;form action="/api/submit" method="POST"&gt;
+  &lt;!-- Always link &lt;label for="id"&gt; with &lt;input id="id"&gt; for accessibility --&gt;
+  &lt;label for="email"&gt;Email Address:&lt;/label&gt;
+  &lt;input type="email" id="email" name="email" required placeholder="user@example.com"&gt;
+
+  &lt;label for="password"&gt;Password:&lt;/label&gt;
+  &lt;input type="password" id="password" minlength="8" required&gt;
+
+  &lt;input type="checkbox" id="terms" name="terms"&gt;
+  &lt;label for="terms"&gt;I agree to Terms&lt;/label&gt;
+
+  &lt;!-- Dropdown menu --&gt;
+  &lt;select name="role"&gt;
+    &lt;option value="dev"&gt;Developer&lt;/option&gt;
+    &lt;option value="des"&gt;Designer&lt;/option&gt;
+  &lt;/select&gt;
+
+  &lt;button type="submit"&gt;Submit Form&lt;/button&gt;
+&lt;/form&gt;</pre>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 9: SEMANTIC HTML5 LAYOUT STRUCTURE
+         ======================================================================== -->
+    <section class="guide-section" id="sec-semantic">
+      <div class="section-header">
+        <h2 class="section-title"><span>🏗️</span> Module 9: Semantic HTML5 Layout Structure</h2>
+        <span class="section-tag tag-html">Semantics</span>
+      </div>
+
+      <div class="card-grid">
+        <article class="syntax-card" data-keywords="header nav main section article aside footer semantic layout">
+          <div class="syntax-header">
+            <span class="syntax-name">&lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;section&gt;, &lt;article&gt;,
+              &lt;aside&gt;, &lt;footer&gt;</span>
+            <span class="syntax-tag-type">Document Landmark Landmarks</span>
+          </div>
+          <div class="explain-block">
+            <div class="this-is-for-badge">
+              <span class="badge-label-for">This is For</span>
+              <span>Giving meaningful structural semantics to your layout instead of generic <code>&lt;div&gt;</code>
+                soup.</span>
+            </div>
+            <div class="what-happens-badge">
+              <span class="badge-label-effect">What Will Happen</span>
+              <span>Search engines understand the primary article vs sidebar navigation, and screen reader users can
+                effortlessly skip between major sections.</span>
+            </div>
+          </div>
+          <div class="card-body-split">
+            <div class="live-preview-box">
+              <div class="box-title">👁️ Live Architectural Map</div>
+              <div
+                style="display: flex; flex-direction: column; gap: 6px; font-size: 0.75rem; text-align: center; font-weight: 600;">
+                <div
+                  style="background: rgba(56, 189, 248, 0.2); border: 1px solid #38bdf8; padding: 6px; border-radius: 4px; color: #7dd3fc;">
+                  &lt;header&gt; (Logo, Masthead) &amp; &lt;nav&gt; (Links)</div>
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 6px;">
+                  <div
+                    style="background: rgba(168, 85, 247, 0.2); border: 1px solid #a855f7; padding: 18px 6px; border-radius: 4px; color: #c084fc;">
+                    &lt;main&gt;
+                    <div style="background: rgba(255,255,255,0.05); margin-top: 4px; padding: 4px; border-radius: 3px;">
+                      &lt;article&gt; / &lt;section&gt;</div>
+                  </div>
+                  <div
+                    style="background: rgba(245, 158, 11, 0.2); border: 1px solid #f59e0b; padding: 18px 6px; border-radius: 4px; color: #fcd34d;">
+                    &lt;aside&gt; (Sidebar / Ads)</div>
+                </div>
+                <div
+                  style="background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; padding: 6px; border-radius: 4px; color: #6ee7b7;">
+                  &lt;footer&gt; (Copyright, Legal, Links)</div>
+              </div>
+            </div>
+            <div class="code-editor-box">
+              <button class="copy-btn" onclick="copySnippet(this)">📋 Copy</button>
+              <pre class="code-snippet">&lt;header&gt;
+  &lt;nav&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;main&gt;
+  &lt;section&gt;
+    &lt;article&gt;
+      &lt;h2&gt;Blog Post Title&lt;/h2&gt;
+      &lt;p&gt;Article content goes here...&lt;/p&gt;
+    &lt;/article&gt;
+  &lt;/section&gt;
+  &lt;aside&gt;
+    &lt;h3&gt;Related Posts&lt;/h3&gt;
+  &lt;/aside&gt;
+&lt;/main&gt;
+
+&lt;footer&gt;
+  &lt;p&gt;&amp;copy; 2026 Company Name&lt;/p&gt;
+&lt;/footer&gt;</pre>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 10: MODERN INTERACTIVE HTML5 ELEMENTS
+         ======================================================================== -->
+    <section class="guide-section" id="sec-interactive-html">
+      <div class="section-header">
+        <h2 class="section-title"><span>✨</span> Module 10: Modern Interactive HTML5 Elements</h2>
+        <span class="section-tag tag-html">HTML5 Power</span>
+      </div>
+
+      <div class="card-grid">
+        <article class="syntax-card" data-keywords="details summary dialog modal progress meter time interactive">
+          <div class="syntax-header">
+            <span class="syntax-name">&lt;details&gt;, &lt;summary&gt;, &lt;dialog&gt;, &lt;progress&gt;,
+              &lt;meter&gt;</span>
+            <span class="syntax-tag-type">Native Interactive Tags</span>
+          </div>
+          <div class="explain-block">
+            <div class="this-is-for-badge">
+              <span class="badge-label-for">This is For</span>
+              <span>Creating collapsible accordions (<code>&lt;details&gt;</code>), pop-up modal dialogs
+                (<code>&lt;dialog&gt;</code>), and telemetry bars without heavy JavaScript libraries.</span>
+            </div>
+            <div class="what-happens-badge">
+              <span class="badge-label-effect">What Will Happen</span>
+              <span>The browser natively handles expand/collapse toggles, modal focus trapping, and progress bar
+                percentages.</span>
+            </div>
+          </div>
+          <div class="card-body-split">
+            <div class="live-preview-box">
+              <div class="box-title">👁️ Live Interactive Result</div>
+
+              <!-- Accordion Demo -->
+              <details
+                style="background: var(--bg-surface-elevated); padding: 8px 12px; border-radius: 6px; cursor: pointer; border: 1px solid var(--border-subtle); margin-bottom: 10px;">
+                <summary style="font-weight: 600; color: var(--primary);">▶ Click Me: &lt;details&gt; Accordion Demo
+                </summary>
+                <p style="margin-top: 8px; font-size: 0.8rem; color: var(--text-muted);">
+                  This content reveals automatically without needing a single line of JavaScript!
+                </p>
+              </details>
+
+              <!-- Progress & Meter Demo -->
+              <div style="margin-bottom: 10px; font-size: 0.8rem;">
+                <div>Progress (&lt;progress value="75" max="100"&gt;):</div>
+                <progress value="75" max="100"
+                  style="width: 100%; height: 10px; accent-color: var(--primary);"></progress>
+              </div>
+
+              <!-- Native Modal Dialog Trigger -->
+              <button class="demo-btn" style="width: 100%;"
+                onclick="document.getElementById('nativeModal').showModal()">
+                Open Native &lt;dialog&gt; Modal
+              </button>
+
+              <!-- Modal Element -->
+              <dialog id="nativeModal" class="demo-dialog">
+                <h3 style="margin-bottom: 0.5rem; color: var(--primary);">Native &lt;dialog&gt; Element</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                  This is rendered with the HTML5 &lt;dialog&gt; tag. It automatically traps focus and dims the
+                  background!
+                </p>
+                <button class="demo-btn" onclick="document.getElementById('nativeModal').close()">Close Modal</button>
+              </dialog>
+
+            </div>
+            <div class="code-editor-box">
+              <button class="copy-btn" onclick="copySnippet(this)">📋 Copy</button>
+              <pre class="code-snippet">&lt;!-- Native Collapsible Accordion (Zero JS) --&gt;
+&lt;details&gt;
+  &lt;summary&gt;Click to expand FAQ item&lt;/summary&gt;
+  &lt;p&gt;Hidden answer text revealed here.&lt;/p&gt;
+&lt;/details&gt;
+
+&lt;!-- Native Modal Dialog (Built-in backdrop &amp; ESC key close) --&gt;
+&lt;dialog id="myModal"&gt;
+  &lt;h3&gt;Modal Title&lt;/h3&gt;
+  &lt;p&gt;Modal body content&lt;/p&gt;
+  &lt;button onclick="this.closest('dialog').close()"&gt;Close&lt;/button&gt;
+&lt;/dialog&gt;
+&lt;button onclick="document.getElementById('myModal').showModal()"&gt;
+  Open Modal
+&lt;/button&gt;</pre>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 11: CSS SELECTORS
+         ======================================================================== -->
+    <section class="guide-section" id="sec-selectors">
+      <div class="section-header">
+        <h2 class="section-title"><span>🎯</span> Module 11: CSS Selectors &amp; Specificity</h2>
+        <span class="section-tag tag-css">CSS Core</span>
+      </div>
+
+      <div class="card-grid">
+        <article class="syntax-card"
+          data-keywords="css selector class id element child hover focus nth-child before after pseudo">
+          <div class="syntax-header">
+            <span class="syntax-name">Element, .class, #id, :hover, :nth-child(), ::before</span>
+            <span class="syntax-tag-type">Targeting Elements</span>
+          </div>
+          <div class="explain-block">
+            <div class="this-is-for-badge">
+              <span class="badge-label-for">This is For</span>
+              <span>Targeting specific elements on the page to apply styles based on tag name, class, ID, user
+                interactions (hover, focus), or position.</span>
+            </div>
+            <div class="what-happens-badge">
+              <span class="badge-label-effect">What Will Happen</span>
+              <span>Only the matching elements receive the styles. Pseudo-classes like <code>:hover</code> react
+                dynamically in real-time when the user points their mouse.</span>
+            </div>
+          </div>
+          <div class="card-body-split">
+            <div class="live-preview-box">
+              <div class="box-title">👁️ Live Interactive Hover Demo</div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button class="selector-demo-btn"
+                  style="background: var(--bg-surface-elevated); color: var(--primary); border: 1px solid var(--border-subtle); padding: 8px 14px; border-radius: 6px; cursor: pointer; transition: all 0.2s;"
+                  onmouseover="this.style.background='var(--primary)'; this.style.color='#000';"
+                  onmouseout="this.style.background='var(--bg-surface-elevated)'; this.style.color='var(--primary)';">
+                  Hover Me (:hover)
+                </button>
+                <input type="text" placeholder="Click me (:focus)"
+                  style="background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-subtle); padding: 8px; border-radius: 6px; outline: none; font-size: 0.8rem; width: 150px;"
+                  onfocus="this.style.borderColor='var(--accent-purple)'; this.style.boxShadow='0 0 10px rgba(168,85,247,0.4)';"
+                  onblur="this.style.borderColor='var(--border-subtle)'; this.style.boxShadow='none';">
+              </div>
+              <div style="margin-top: 12px; font-size: 0.75rem; color: var(--text-dim);">
+                💡 Rule of thumb: Prefer <strong>.classes</strong> over <strong>#ids</strong> for reusable styles.
+              </div>
+            </div>
+            <div class="code-editor-box">
+              <button class="copy-btn" onclick="copySnippet(this)">📋 Copy</button>
+              <pre class="code-snippet">/* Element Selector */
+p { color: #f8fafc; }
+
+/* Class Selector (Best practice for reuse) */
+.btn-primary { background: #38bdf8; }
+
+/* ID Selector (High specificity) */
+#main-header { position: sticky; }
+
+/* Pseudo-Class: Triggers on mouse hover */
+button:hover { transform: translateY(-2px); }
+
+/* Pseudo-Class: Triggers when clicked/focused */
+input:focus { border-color: #a855f7; }
+
+/* Pseudo-Class: Alternating row colors */
+tr:nth-child(even) { background: #1e293b; }
+
+/* Pseudo-Element: Inserts decorative content */
+.quote::before { content: "“"; font-size: 2rem; }</pre>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 12: CSS BOX MODEL
+         ======================================================================== -->
+    <section class="guide-section" id="sec-box-model">
+      <div class="section-header">
+        <h2 class="section-title"><span>📦</span> Module 12: CSS Box Model &amp; Sizing</h2>
+        <span class="section-tag tag-css">Box Model</span>
+      </div>
+
+      <div class="card-grid">
+        <article class="syntax-card"
+          data-keywords="box model margin border padding content box-sizing border-box width height">
+          <div class="syntax-header">
+            <span class="syntax-name">margin, border, padding, content &amp; box-sizing</span>
+            <span class="syntax-tag-type">The Core Layout Formula</span>
+          </div>
+          <div class="explain-block">
+            <div class="this-is-for-badge">
+              <span class="badge-label-for">This is For</span>
+              <span>Controlling the exact space around elements, inside element borders, and how total width is
+                calculated.</span>
+            </div>
+            <div class="what-happens-badge">
+              <span class="badge-label-effect">What Will Happen</span>
+              <span><strong>Padding</strong> pushes content inwards from the border; <strong>Margin</strong> pushes
+                neighboring elements away; <code>box-sizing: border-box</code> stops padding from inflating the box
+                width.</span>
+            </div>
+          </div>
+          <div class="card-body-split">
+            <div class="live-preview-box">
+              <div class="box-title">👁️ Visual Box Model Diagram</div>
+              <div class="box-model-diagram">
+                MARGIN (Outer spacing between neighbors)
+                <div class="box-border-layer">
+                  BORDER (The perimeter edge)
+                  <div class="box-padding-layer">
+                    PADDING (Inner breathing room)
+                    <div class="box-content-layer">
+                      CONTENT (Text / Images / Children)
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="code-editor-box">
+              <button class="copy-btn" onclick="copySnippet(this)">📋 Copy</button>
+              <pre class="code-snippet">/* Universal reset: keeps padding INSIDE width/height */
+* {
+  box-sizing: border-box;
+}
+
+.box {
+  width: 300px;
+  /* Top Right Bottom Left (Clockwise) */
+  margin: 20px auto;    /* Pushes external siblings away */
+  border: 2px solid #38bdf8; /* Visible perimeter frame */
+  padding: 16px 24px;   /* Room between content and border */
+}</pre>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 13: CSS COLORS, GRADIENTS & VARIABLES
+         ======================================================================== -->
+    <section class="guide-section" id="sec-colors-bg">
+      <div class="section-header">
+        <h2 class="section-title"><span>🎨</span> Module 13: CSS Colors, Gradients &amp; Variables</h2>
+        <span class="section-tag tag-css">Visuals</span>
+      </div>
+
+      <div class="card-grid">
+        <article class="syntax-card"
+          data-keywords="color background gradient linear-gradient radial-gradient var variables rgb hsl hex">
+          <div class="syntax-header">
+            <span class="syntax-name">var(--variable), HEX, RGB, HSL, linear-gradient()</span>
+            <span class="syntax-tag-type">Color Systems &amp; Fills</span>
+          </div>
+          <div class="explain-block">
+            <div class="this-is-for-badge">
+              <span class="badge-label-for">This is For</span>
+              <span>Painting backgrounds, text colors, transparent overlays, and multi-color gradient transitions using
+                CSS custom variables.</span>
+            </div>
+            <div class="what-happens-badge">
+              <span class="badge-label-effect">What Will Happen</span>
+              <span>Transforms flat interfaces into vibrant, smooth, modern visual aesthetics.</span>
+            </div>
+          </div>
+          <div class="card-body-split">
+            <div class="live-preview-box">
+              <div class="box-title">👁️ Live Gradient &amp; Color Swatches</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <div
+                  style="background: linear-gradient(135deg, #38bdf8, #818cf8); height: 45px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: #fff;">
+                  Linear Gradient
+                </div>
+                <div
+                  style="background: radial-gradient(circle, #f43f5e, #881337); height: 45px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: #fff;">
+                  Radial Gradient
+                </div>
+                <div
+                  style="background: rgba(56, 189, 248, 0.25); border: 1px solid #38bdf8; height: 45px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; color: #7dd3fc;">
+                  RGBA Transparency
+                </div>
+                <div
+                  style="background: hsl(150, 80%, 40%); height: 45px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: #fff;">
+                  HSL Color Space
+                </div>
+              </div>
+            </div>
+            <div class="code-editor-box">
+              <button class="copy-btn" onclick="copySnippet(this)">📋 Copy</button>
+              <pre class="code-snippet">/* Define CSS variable */
+:root {
+  --brand-primary: #38bdf8;
+}
+
+/* Consume CSS variable */
+.title {
+  color: var(--brand-primary);
+}
+
+/* Smooth angled background gradient */
+.card-hero {
+  background: linear-gradient(135deg, #38bdf8 0%, #a855f7 100%);
+}
+
+/* Semi-transparent overlay with RGBA */
+.modal-backdrop {
+  background: rgba(0, 0, 0, 0.65);
+}</pre>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 14: CSS FLEXBOX LAYOUT
+         ======================================================================== -->
+    <section class="guide-section" id="sec-flexbox">
+      <div class="section-header">
+        <h2 class="section-title"><span>📐</span> Module 14: CSS Flexbox Layout (1D Alignment)</h2>
+        <span class="section-tag tag-layout">Flexbox</span>
+      </div>
+
+      <div class="card-grid">
+        <article class="syntax-card"
+          data-keywords="flexbox display flex justify-content align-items gap flex-direction flex-wrap flex-grow">
+          <div class="syntax-header">
+            <span class="syntax-name">display: flex; justify-content; align-items; gap;</span>
+            <span class="syntax-tag-type">One-Dimensional Axis Alignment</span>
+          </div>
+          <div class="explain-block">
+            <div class="this-is-for-badge">
+              <span class="badge-label-for">This is For</span>
+              <span>Laying out items neatly along a single row or column with flexible spacing, centering, and
+                wrapping.</span>
+            </div>
+            <div class="what-happens-badge">
+              <span class="badge-label-effect">What Will Happen</span>
+              <span>Children automatically line up in a horizontal row, effortlessly center both vertically and
+                horizontally, and maintain exact spacing with <code>gap</code>.</span>
+            </div>
+          </div>
+          <div class="card-body-split">
+            <div class="live-preview-box">
+              <div class="box-title">👁️ Interactive Flexbox Playground</div>
+              <div style="margin-bottom: 8px; display: flex; gap: 6px; flex-wrap: wrap;">
+                <button class="demo-btn" style="font-size: 0.7rem; padding: 3px 8px;"
+                  onclick="document.getElementById('liveFlexDemo').style.justifyContent='flex-start'">Left</button>
+                <button class="demo-btn" style="font-size: 0.7rem; padding: 3px 8px;"
+                  onclick="document.getElementById('liveFlexDemo').style.justifyContent='center'">Center</button>
+                <button class="demo-btn" style="font-size: 0.7rem; padding: 3px 8px;"
+                  onclick="document.getElementById('liveFlexDemo').style.justifyContent='space-between'">Space
+                  Between</button>
+                <button class="demo-btn" style="font-size: 0.7rem; padding: 3px 8px;"
+                  onclick="document.getElementById('liveFlexDemo').style.justifyContent='flex-end'">Right</button>
+              </div>
+              <div class="flex-playground" id="liveFlexDemo"
+                style="justify-content: space-between; align-items: center;">
+                <div class="flex-item">Item 1</div>
+                <div class="flex-item">Item 2</div>
+                <div class="flex-item">Item 3</div>
+              </div>
+            </div>
+            <div class="code-editor-box">
+              <button class="copy-btn" onclick="copySnippet(this)">📋 Copy</button>
+              <pre class="code-snippet">.container {
+  display: flex;             /* Activates Flexbox context */
+  flex-direction: row;       /* Direction: row or column */
+  justify-content: center;   /* Horizontal alignment on main axis */
+  align-items: center;       /* Vertical alignment on cross axis */
+  gap: 16px;                 /* Space between items without margins */
+  flex-wrap: wrap;           /* Wraps to next row if screen is narrow */
+}
+
+.item {
+  flex: 1;                   /* Grow equally to fill available space */
+}</pre>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 15: CSS GRID LAYOUT
+         ======================================================================== -->
+    <section class="guide-section" id="sec-grid">
+      <div class="section-header">
+        <h2 class="section-title"><span>🏁</span> Module 15: CSS Grid Layout (2D Layout)</h2>
+        <span class="section-tag tag-layout">Grid</span>
+      </div>
+
+      <div class="card-grid">
+        <article class="syntax-card" data-keywords="display grid grid-template-columns repeat minmax gap span 2d">
+          <div class="syntax-header">
+            <span class="syntax-name">display: grid; grid-template-columns: repeat(...); gap: ...;</span>
+            <span class="syntax-tag-type">Two-Dimensional Matrix Layout</span>
+          </div>
+          <div class="explain-block">
+            <div class="this-is-for-badge">
+              <span class="badge-label-for">This is For</span>
+              <span>Building full two-dimensional page layouts with rows and columns simultaneously. Ideal for
+                dashboards, galleries, and cards.</span>
+            </div>
+            <div class="what-happens-badge">
+              <span class="badge-label-effect">What Will Happen</span>
+              <span>Organizes child items into strict mathematical columns. <code>grid-column: span 2</code> expands an
+                item to cover two full columns.</span>
+            </div>
+          </div>
+          <div class="card-body-split">
+            <div class="live-preview-box">
+              <div class="box-title">👁️ Live Grid Preview</div>
+              <div class="grid-playground">
+                <div class="grid-item">Col 1</div>
+                <div class="grid-item">Col 2</div>
+                <div class="grid-item">Col 3</div>
+                <div class="grid-item grid-item-span">Spanning 2 Columns (span 2)</div>
+                <div class="grid-item">Col 3</div>
+              </div>
+            </div>
+            <div class="code-editor-box">
+              <button class="copy-btn" onclick="copySnippet(this)">📋 Copy</button>
+              <pre class="code-snippet">.grid-container {
+  display: grid;
+  /* 3 equal responsive columns */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+/* Make an item stretch across 2 columns */
+.featured-card {
+  grid-column: span 2;
+}
+
+/* Modern Auto-Responsive Grid (No media queries needed!) */
+.auto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}</pre>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 16: CSS POSITIONING & LAYERS
+         ======================================================================== -->
+    <section class="guide-section" id="sec-positioning">
+      <div class="section-header">
+        <h2 class="section-title"><span>📍</span> Module 16: CSS Positioning &amp; Layers</h2>
+        <span class="section-tag tag-css">Positioning</span>
+      </div>
+
+      <div class="card-grid">
+        <article class="syntax-card"
+          data-keywords="position relative absolute fixed sticky z-index top left right bottom">
+          <div class="syntax-header">
+            <span class="syntax-name">position: static | relative | absolute | fixed | sticky; z-index;</span>
+            <span class="syntax-tag-type">Coordinates &amp; Stacking</span>
+          </div>
+          <div class="explain-block">
+            <div class="this-is-for-badge">
+              <span class="badge-label-for">This is For</span>
+              <span>Pinning headers to the screen (<code>fixed</code> / <code>sticky</code>) or placing badges exactly
+                in the top-right corner of a card (<code>absolute</code> inside <code>relative</code>).</span>
+            </div>
+            <div class="what-happens-badge">
+              <span class="badge-label-effect">What Will Happen</span>
+              <span>Takes the element out of normal document flow, allowing coordinates (<code>top</code>,
+                <code>left</code>, etc.) and layer order (<code>z-index</code>) to place it anywhere on screen.</span>
+            </div>
+          </div>
+          <div class="card-body-split">
+            <div class="live-preview-box">
+              <div class="box-title">👁️ Live Absolute Positioning Sandbox</div>
+              <div class="position-sandbox">
+                <div class="pos-parent">Parent Container: <code>position: relative;</code></div>
+                <div class="pos-absolute-child">
+                  📍 Absolute: top: 15px; right: 15px;
+                </div>
+              </div>
+            </div>
+            <div class="code-editor-box">
+              <button class="copy-btn" onclick="copySnippet(this)">📋 Copy</button>
+              <pre class="code-snippet">/* Parent anchor context */
+.card {
+  position: relative; 
+}
+
+/* Floats freely inside the parent */
+.badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10; /* Stack on top of other content */
+}
+
+/* Stays glued to viewport during page scrolling */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}</pre>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 17: TRANSFORMS, TRANSITIONS & KEYFRAME ANIMATIONS
+         ======================================================================== -->
+    <section class="guide-section" id="sec-animations">
+      <div class="section-header">
+        <h2 class="section-title"><span>🎬</span> Module 17: CSS Transforms, Transitions &amp; Animations</h2>
+        <span class="section-tag tag-css">Motion</span>
+      </div>
+
+      <div class="card-grid">
+        <article class="syntax-card"
+          data-keywords="transition transform rotate scale translate keyframes animation motion">
+          <div class="syntax-header">
+            <span class="syntax-name">transition, transform: scale()/rotate(), @keyframes</span>
+            <span class="syntax-tag-type">Smooth Motion &amp; GPU Acceleration</span>
+          </div>
+          <div class="explain-block">
+            <div class="this-is-for-badge">
+              <span class="badge-label-for">This is For</span>
+              <span>Adding smooth hover transitions, rotating icons, scale pop effects, and continuous looping
+                animations.</span>
+            </div>
+            <div class="what-happens-badge">
+              <span class="badge-label-effect">What Will Happen</span>
+              <span>Changes animate smoothly over time (e.g. 0.3s) instead of snapping abruptly, making your web
+                application feel polished and responsive.</span>
+            </div>
+          </div>
+          <div class="card-body-split">
+            <div class="live-preview-box" style="align-items: center;">
+              <div class="box-title">👁️ Live CSS Keyframes Motion</div>
+              <div class="animation-preview-item">
+                🚀
+              </div>
+              <span style="font-size: 0.725rem; color: var(--text-dim); margin-top: 10px;">Looping @keyframes
+                floatRotate (Zero JS!)</span>
+            </div>
+            <div class="code-editor-box">
+              <button class="copy-btn" onclick="copySnippet(this)">📋 Copy</button>
+              <pre class="code-snippet">/* Smooth Hover Transition */
+.button {
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+.button:hover {
+  transform: translateY(-3px) scale(1.03);
+}
+
+/* Continuous Keyframe Animation */
+@keyframes pulseGlow {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.pulsing-element {
+  animation: pulseGlow 2s infinite ease-in-out;
+}</pre>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 18: RESPONSIVE DESIGN & MEDIA QUERIES
+         ======================================================================== -->
+    <section class="guide-section" id="sec-media-queries">
+      <div class="section-header">
+        <h2 class="section-title"><span>📱</span> Module 18: Responsive Design &amp; Media Queries</h2>
+        <span class="section-tag tag-css">Responsive</span>
+      </div>
+
+      <div class="card-grid">
+        <article class="syntax-card" data-keywords="media queries responsive mobile tablet desktop breakpoint screen">
+          <div class="syntax-header">
+            <span class="syntax-name">@media (max-width: 768px) { ... }</span>
+            <span class="syntax-tag-type">Responsive Conditional Styles</span>
+          </div>
+          <div class="explain-block">
+            <div class="this-is-for-badge">
+              <span class="badge-label-for">This is For</span>
+              <span>Applying specific CSS rules only when the screen size matches a condition (like smartphones or
+                tablets).</span>
+            </div>
+            <div class="what-happens-badge">
+              <span class="badge-label-effect">What Will Happen</span>
+              <span>Multi-column desktop layouts automatically collapse into comfortable single-column mobile views on
+                smaller screens.</span>
+            </div>
+          </div>
+          <div class="card-body-split">
+            <div class="live-preview-box">
+              <div class="box-title">👁️ Responsive Strategy Rule</div>
+              <div
+                style="background: rgba(255,255,255,0.04); padding: 12px; border-radius: 6px; font-size: 0.825rem; line-height: 1.5;">
+                <p><strong>Mobile First Mindset:</strong></p>
+                <p style="color: var(--text-muted); margin-top: 4px;">1. Write base styles for mobile screens.</p>
+                <p style="color: var(--text-muted);">2. Use <code>@media (min-width: 768px)</code> to enhance for
+                  Tablets.</p>
+                <p style="color: var(--text-muted);">3. Use <code>@media (min-width: 1024px)</code> for Desktops.</p>
+              </div>
+            </div>
+            <div class="code-editor-box">
+              <button class="copy-btn" onclick="copySnippet(this)">📋 Copy</button>
+              <pre class="code-snippet">/* Default base layout (Mobile: Single Column) */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+/* Tablet &amp; Desktop Enhancement */
+@media (min-width: 768px) {
+  .content-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1024px) {
+  .content-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}</pre>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       CLIENT-SIDE JAVASCRIPT FOR ENHANCED LEARNING INTERACTIVITY
+       ========================================================================== -->
+  <script>
+    // Copy Snippet to Clipboard Functionality
+    function copySnippet(button) {
+      const codeBlock = button.parentElement.querySelector('pre');
+      if (!codeBlock) return;
+      navigator.clipboard.writeText(codeBlock.innerText).then(() => {
+        const originalText = button.innerHTML;
+        button.innerHTML = "✅ Copied!";
+        button.style.background = "#10b981";
+        button.style.color = "#ffffff";
+        setTimeout(() => {
+          button.innerHTML = originalText;
+          button.style.background = "";
+          button.style.color = "";
+        }, 1800);
+      });
+    }
+
+    // Real-Time Filter Functionality
+    function filterCards() {
+      const query = document.getElementById('syntaxSearch').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.syntax-card');
+
+      cards.forEach(card => {
+        const keywords = card.getAttribute('data-keywords') || '';
+        const text = card.innerText.toLowerCase();
+        if (text.includes(query) || keywords.toLowerCase().includes(query)) {
+          card.style.display = "";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+
+    // Dynamic Navigation Highlighting on Scroll
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('.guide-section');
+      const navLinks = document.querySelectorAll('.nav-link');
+      let currentSectionId = "";
+
+      sections.forEach(sec => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top <= 160 && rect.bottom >= 160) {
+          currentSectionId = sec.getAttribute('id');
+        }
+      });
+
+      if (currentSectionId) {
+        navLinks.forEach(link => {
+          if (link.getAttribute('href') === `#${currentSectionId}`) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>
